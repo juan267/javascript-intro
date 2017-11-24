@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <script type="text/javascript">
+    var num =prompt("Cuantos bloques tendra la pista?", "5");
+  </script>
+  <table class="racer_table">
+    <tr id="player1_strip">
+      <script type="text/javascript">
+
+        for (var i = 0; i < num; i++) {
+          td=document.createElement("td")
+          if(i===0){
+            td.className ="active"
+          }
+          if(i===num-1){
+            td.className ="last"
+          }
+          document.querySelector("#player1_strip").appendChild(td);
+        }
+      </script>
+    </tr>
+
+    <tr id="player2_strip">
+      <script type="text/javascript">
+
+        for (var i = 0; i <num; i++) {
+          td=document.createElement("td")
+          if(i===0){
+            td.className ="active"
+          }
+          if(i===num-1){
+            td.className ="last"
+          }
+          document.querySelector("#player2_strip").appendChild(td);
+        }
+      </script>
+    </tr>
+
+  </table>
+
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script type="text/javascript"  src="blah.js"></script>
+</body>
+</html>

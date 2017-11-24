@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS racer</title>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css"> 
+	<meta charset="utf-8">
+</head>
+<body>
+	<header>
+		<h1 class="bold">JS racer</h1>
+	</header>
+	<div class="wrapper">
+		<div class="startline"></div>
+		<div class="racetrack">
+			<div class="track track1">
+				<div class="car car1" id="player1">
+					<img src="img/car1.png">
+				</div>
+			</div>
+			<div class="track track2">
+				<div class="car car2" id="player2">
+					<img src="img/car2.png">
+				</div>
+			</div>
+		</div>
+		<div class="finishline">
+			<div>f<br>i<br>n<br>i<br>s<br>h<br></div>
+		</div>
+	</div>
+	<section>
+		<div class="helpers bold">
+			<div class="timer" id="timer">5</div>
+			<button class="start-button " id="start-race">race again</button>
+		</div>
+		<div class="instructions">
+			<h2 class="bold">Instrucciones</h2>
+			<p> 
+				Para jugar espera a que el conteo termine. Para avanzar, el jugador #1 tiene que presionar la tecla P y el jugador #2 la tecla Q. Para jugar de nuevo presiona el botón "Race Again".
+			</p>
+		</div>
+	</section>
+	<footer>
+		<p></p>
+	</footer>
+<script type="text/javascript" src="js/jquery.min.js"></script> 
+<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
