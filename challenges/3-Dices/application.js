@@ -1,6 +1,4 @@
-// console.log('hola')
-
-//  $(document).ready(function() {  // Codigo Procedural Procedimental --> OOP
+// $(document).ready(function() {  // Codigo Procedural Procedimental --> OOP
 //   // Event Listener
 //   $('#roller button.add').on('click', function() { // Controlador
 //     $('.dice').append('<div class="die">0</div>') // Vista
@@ -15,54 +13,74 @@
 //   })
 // })
 
-$(document).ready(function(){
+$(document).ready(function() {
 
-  var Controller = function(view, model) {
+  var Controller = function(die, view) {
+    this.die = die
     this.view = view
-    this.model = model
   }
 
-  Controller.prototype.bindEvents = function() {
-    console.log(this)
-    $('#hola').on('click', this.view.paintDice)
-    $('#roller button.add').on('click', this.view.paintDice)
-    $('#roller button.roll').on('click', this.rollAllDices.bind(this))
+
+
+  Controller.prototype = {
+    addListeners: function() {
+      $('#roller button.add').on('click', this.view.paintDice) // Cuando se de un click sobre add quiero que pase View.prototype.paintDice()
+
+      $('#roller button.roll').on('click', this.rollAllDices.bind(this)) // Cuando se de un click sobre add quiero que por cada dado el model me un nuevo Die.prototype.roll() value y luego llamar View.prototype.paintDievalue()
+    }
   }
 
-  Controller.prototype.run = function() {
-    console.log('hola')
-    this.bindEvents()
-    this.view.paintDice()
+  Controller.prototype.rollAllDices = function(){
+    var dices = this.view.getAllDicesFromDom()
+    dices.forEach(function(dice){
+      this.die.roll()
+      this.view.paintDieValue(dice, this.die.value)
+    }.bind(this))
   }
 
-  Controller.prototype.rollAllDices = function() {
-    var controller = this
-    $('.die').each(function(index, dieHtml) { // Controlador
-      controller.model.roll()
-      controller.view.rollAllDices(dieHtml, controller.model.value)
-    })
-  }
 
-  var Model = function() {
-    this.value = 0
-  }
 
-  Model.prototype.roll = function() {
-    this.value = Math.floor((Math.random()*6)+1) // Model
-  }
-
+// View ///////////////////////////////////////////////////
   var View = function() {
 
   }
 
-  View.prototype.paintDice = function() {
-    console.log(this)
-    $('.dice').append('<div class="die">0</div>')
+  View.prototype = {
+    paintDice: function() {
+      $('.dice').append('<div class="die">1</div>')
+    },
+    paintDieValue: function(dieElement, newValue) {
+      $(dieElement).text(newValue)
+    },
+    getAllDicesFromDom: function() {
+      return document.querySelectorAll('.die')
+    }
   }
 
-  View.prototype.rollAllDices =
+
+// Model /////////////////////////////////////////////////
+  var Die = function(sides) {
+    this.sides = sides
+    this.value = 1
+  }
+
+  // Side effect
+  Die.prototype.roll = function() {
+    this.value = Math.floor((Math.random() * this.sides) + 1)
+  }
+// End Model ///////////////////////////////////////////////////
+
+
+
+// Objectos ////////////////////////////////////////////////
+  var die = new Die(16)
   var view = new View()
-  var model = new Model()
-  var game = new Controller(view, model)
-  game.run()
+  // Dependency Injection
+  var controller = new Controller(die, view)
+  controller.addListeners()
 })
+
+
+
+
+
