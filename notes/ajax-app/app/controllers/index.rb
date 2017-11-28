@@ -10,11 +10,13 @@ end
 get '/posts/:id/vote' do
   post = Post.find(params[:id])
   post.votes.create(value: 1)
-  redirect '/posts'
 
-  # Ajaxificado
-  # content_type :json
-  # {votes_count: post.votes.count, id: post.id}.to_json
+  if request.xhr?
+    content_type :json
+    {value: post.votes.count, post_id: post.id}.to_json
+  else
+    redirect '/posts'
+  end
 end
 
 delete '/posts/:id' do
@@ -23,14 +25,14 @@ end
 
 post '/posts' do
   @post = Post.new(title: params["title"],
-               username: Faker::Internet.user_name,
+               username: params["author"],
                comment_count: rand(1000))
   if @post.save
-    redirect '/posts'
+    # redirect '/posts'
 
     # Con partials
     # status 201
-    # erb :"_post", layout: false, locals: {post: @post}
+    erb :"_post", layout: false, locals: {post: @post}
 
 
     # Con JSON

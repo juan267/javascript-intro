@@ -1,3 +1,97 @@
+$(document).ready(function(){
+
+  $('.vote-button').on('click', function(event){
+    // Yo tengo el control
+    event.preventDefault()
+
+    // Recopilacion de informacion
+    var url = $(this).attr('href')
+
+
+    // Hacer el request
+    var responsePromise = $.ajax({
+      url: url,
+      method: "GET"
+    })
+
+    responsePromise.done(function(response){
+      // Actualizar el DOM
+      $(`#${response.post_id} .points`).html(response.value)
+    })
+
+    responsePromise.fail(function(response){
+      console.log(response)
+    })
+
+
+  })
+
+  $("form#posts").on('submit', function(event){
+    event.preventDefault()
+
+    // informacion
+    var url = $(this).attr('action')
+    var post = {
+      title: this.title.value,
+      author: this.author.value,
+      content: this.content.value
+    }
+
+    $.ajax({
+      url: url,
+      method: "POST",
+      data: post
+    }).done(function(response){
+      console.log(response)
+      $(".post-container").append(response)
+    })
+
+
+
+  })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // $(document).ready(function() {
 
 //   // Event listeners
